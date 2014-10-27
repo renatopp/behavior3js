@@ -35,9 +35,9 @@ Visit http://behavior3js.guineashots.com to know more!
 Using It
 --------
 
--VERSION.min.js` file and include into your HTML::
+Download the file `b3core.VERSION.min.js` and include it into your HTML::
 
-    <script type="text/javascript" src="b3core-VERSION.min.js"></script>
+    <script type="text/javascript" src="b3core.VERSION.min.js"></script>
 
 You can use the online visual editor to design your behavior tree:
 
