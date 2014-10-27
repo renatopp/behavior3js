@@ -1,0 +1,83 @@
+<nav class="side-bar right" style="">
+  <div class="wrap">
+    <div class="tabs" data-tab>
+      <span class="active">
+        <a href="#tab-properties">Properties</a>
+      </span>
+      <!-- <span>
+        <a href="#tab-help">Help</a>
+      </span> -->
+    </div>
+
+    <div class="tabs-content">
+      <div class="content active" id="tab-properties">
+        
+        <!-- PROPERTIES -->
+        <div class="nano">
+          <div class="nano-content">
+        
+            <div id="properties-panel-alternate" class="app-panel text-center">
+              <p style="text-align:center">Select a <strong>single</strong> block to change its properties.</p>
+              <p style="text-align:center"><em>NOTE: The root node represents a tree. Therefore, changes applied to this node will persist on the tree object.</em></p>
+            </div>
+
+            <div id="properties-panel" class="app-panel hide">
+              <form class="">
+                <div>
+                  <label>Title
+                    <input id="title" type="text" placeholder="Node title" onkeyup="app.events.onPropertyChange(event);" />
+                  </label>
+                </div>
+
+                <div>
+                  <label>Description
+                    <input id="description" type="text" placeholder="Node description" onchange=""/>
+                  </label>
+                </div>
+
+                <div>
+                  <label>Parameters</label>
+                  
+                  <div class="editable-operators clearfix">
+                    <div class="operator">
+                      <input type="button" class="operator" onclick="app.events.onAddEditableRow($('#parameters-table'));" value="+">
+                    </div>
+                  </div>
+                  <div id="parameters-table" class="editable-table clearfix">
+                    <!-- UPDATED AUTOMATICALLY -->
+                  </div>
+                </div>
+
+                <div>
+                  <label>Properties</label>
+                  
+                  <div class="editable-operators clearfix">
+                    <div class="operator">
+                      <input type="button" class="operator" onclick="app.events.onAddEditableRow($('#properties-table'));" value="+">
+                    </div>
+                  </div>
+                  <div id="properties-table" class="editable-table">
+                    <!-- UPDATED AUTOMATICALLY -->
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- END PROPERTIES -->
+
+
+      </div>
+      <div class="content" id="tab-help">
+        <div class="nano">
+          <div class="nano-content">
+        
+            <div id="help-panel" class="app-panel">
+              help
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> 

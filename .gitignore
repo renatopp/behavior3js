@@ -26,3 +26,9 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+
+# --------------
+docs/behavior3js
+libs/b3editor*
+libs/b3view*

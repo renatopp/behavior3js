@@ -1,0 +1,38 @@
+<!-- MODAL NEW TREE -->
+<div id="modalEditNode" class="reveal-modal medium" data-reveal data-options="close_on_background_click: false; animation: fade; animation_speed: 150">
+  <h2>Edit Node</h2>
+  <a class="close-reveal-modal">&#215;</a>
+  
+  <div class="content spacing-bot">
+    <table id="editnode-table" class="dynamic-table">
+      <tbody>
+        <tr style="display: table-row;">
+          <td>
+            <input id="name" type="text" placeholder="Node name" value="">
+          </td>
+          <td>
+            <input id="title" type="text" placeholder="Node title" value="">
+          </td>
+          <!-- <td>
+            <select id="category">
+              <option value="composite">Composite</option>
+              <option value="decorator">Decorator</option>
+              <option value="condition">Condition</option>
+              <option value="action" selected="">Action</option>
+            </select> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="operations">
+    <div class="clearfix">
+      <a onclick="app.events.onNodeEditSave(); $('#modalEditNode').foundation('reveal', 'close');" href="#" class="button right small nopadding">Save</a>
+      <a onclick="$('#modalEditNode').foundation('reveal', 'close');" href="#" class="button right secondary small">Cancel</a>
+
+      <a href="#" onclick="app.events.onNodeEditRemove(); $('#modalEditNode').foundation('reveal', 'close');" class="button alert left small">Remove</a>
+    </div>
+  </div>
+</div>
+<!-- END MODAL NEW TREE -->

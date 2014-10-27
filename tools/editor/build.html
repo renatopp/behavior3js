@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+  <title>Behavior3JS Editor</title>
+
+  <script type="text/javascript" src="js/preload.min.js"></script>
+  <link href="css/normalize.css" rel="stylesheet">
+  <link href="css/preload.css" rel="stylesheet">
+
+  <script type="text/javascript">
+    var loader, app;
+
+    function preload() {
+      var domProgress = document.getElementById('loading-progress');
+      var domLoading = document.getElementById('loading-text');
+      
+      loader = new createjs.LoadQueue(true);
+      loader.on('progress', function(event) {
+        domProgress.innerHTML = Math.floor(event.progress*100)+'%';
+      });
+      loader.on('complete', function(event) {
+        domLoading.innerHTML = 'Initializing editor components, please wait...';
+
+        app.initialize();
+
+        // hide preload
+        $('#preloading').fadeOut(250);
+      });
+      loader.loadManifest([
+        // SCRIPT
+        {id:'', src:'img/closedhand.cur'},
+        {id:'', src:'js/b3core.0.1.0.min.js'},
+        {id:'', src:'js/b3view.0.1.0.min.js'},
+        {id:'', src:'js/b3editor.0.1.0.min.js'},
+        {id:'', src:'css/b3editor.0.1.0.min.css'},
+        {id:'view-all', src:'html/b3editor.0.1.0.min.html'},
+      ])
+    }
+  </script>
+
+</head>
+
+<body onload="preload();">
+
+  <div id="preloading">
+    <div class="content">
+      <img src="img/loading.gif" alt="Loading"/>
+      <p id="loading-text">Loading, please wait... <span id="loading-progress">0%</span></p>
+    </div>
+  </div>
+
+  <div id="page">
+  </div>
+
+</body>
+</html>

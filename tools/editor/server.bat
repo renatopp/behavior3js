@@ -1,0 +1,3 @@
+cls
+echo Running a webserver to open Behavior3JS editor...
+python -m SimpleHTTPServer 8000
