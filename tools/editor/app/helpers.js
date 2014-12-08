@@ -201,6 +201,24 @@ app.helpers.addCustomNodes = function(table) {
 
   app.helpers.updateNodes();
 }
+
+app.helpers.addCustomNode = function(option) {
+  var classes = {
+    'composite' : b3.Composite,
+    'decorator' : b3.Decorator,
+    'condition' : b3.Condition,
+    'action' : b3.Action,
+  };
+  var category = option.category;
+  var cls = classes[category];
+  
+  var tempClass = b3.Class(cls);
+  tempClass.prototype.name = option.name;
+  tempClass.prototype.title = option.title;
+  app.view.registerNode(tempClass);
+
+  app.helpers.updateNodes();
+};
 /* ========================================================================= */
 
 /* ========================================================================= */
