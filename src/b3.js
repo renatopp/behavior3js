@@ -263,16 +263,18 @@ b3.Class = function(baseClass) {
     // create a new class
     var cls = function(params) {
         this.initialize(params);
-    }
+    };
     
     // if base class is provided, inherit
     if (baseClass) {
-        cls.prototype = new baseClass();
+        cls.prototype = Object.create(baseClass.prototype);
         cls.prototype.constructor = cls;
     }
     
     // create initialize if does not exist on baseClass
-    cls.prototype.initialize = cls.prototype.initialize || function() {};
+    if(!cls.prototype.initialize) {
+        cls.prototype.initialize = function() {};
+    }
 
     return cls;
 }
