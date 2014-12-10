@@ -284,7 +284,7 @@ var p = View.prototype = new createjs.EventDispatcher;
             spec.parameters  = block.parameters;
             spec.properties  = block.properties;
 
-            var children = block.getOutNodeIds();
+            var children = block.getOutNodeIdsByOrder();
             if (block.category == 'composite') {
                 spec.children = children;
             } else if (block.category == 'decorator' || block.category == 'root') {

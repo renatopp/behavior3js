@@ -113,6 +113,15 @@ var p = Block.prototype;
 
         return nodes;
     }
+    p.getOutNodeIdsByOrder = function() {
+        var nodes = [];
+        var conns = this.getOutConnectionsByOrder();
+        for (var i=0; i<conns.length; i++) {
+            nodes.push(conns[i].outBlock.id);
+        }
+
+        return nodes;
+    }
     p.getOutConnectionsByOrder = function() {
         var conns = this.outConnections.slice(0);
         conns.sort(function(a, b) {
