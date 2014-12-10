@@ -145,21 +145,10 @@ app.events.onButtonNewTree = function(event) {
 }
 app.events.onButtonImportTree = function(event) {
     var json = app.dom.importEntry.val();
+
     try {
-        var data = JSON.parse(json);
-        for (var id in data.nodes) {
-            var node = data.nodes[id];
-            console.log(node)
-            if (!app.view.nodes[node.name]) {
-                app.helpers.addCustomNode({
-                    name: node.name,
-                    title: node.title,
-                    //Try to guess the node type
-                    category: node.child ? "decorator" : (node.children ? "composite" : "action")
-                });
-            }
-        }
         app.view.importFromJSON(json);
+        app.helpers.updateNodes();
     } catch (e) {
         app.helpers.alert('error', 'Bad input format, check the console to '+
                                    'know more about this error.');
