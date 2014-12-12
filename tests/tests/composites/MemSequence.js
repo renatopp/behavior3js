@@ -9,32 +9,13 @@ suite('Composite: MemSequence', function() {
         return {'_execute': _execute};
     }
 
-    var getTick = function() {
-        var tick = {
-            'enterNode'  : sinon.spy(),
-            'openNode'   : sinon.spy(),
-            'tickNode'   : sinon.spy(),
-            'closeNode'  : sinon.spy(),
-            'exitNode'   : sinon.spy(),
-            'tree'       : {
-                'id' : 'tree1'
-            },
-            'blackboard' : {
-                'set' : sinon.spy(),
-                'get' : sinon.stub()
-            }
-        }
-
-        return tick;
-    }
-
     test('Prototype', function() {
         assert.equal(b3.MemSequence.prototype.name, 'MemSequence');
     });
 
     test('Open', function() {
         var msequence = new b3.MemSequence();
-        var tick = getTick();
+        var tick = TickStub();
         msequence.id = 'node1';
         msequence.open(tick);
 
@@ -48,7 +29,7 @@ suite('Composite: MemSequence', function() {
         var node3 = getNode(b3.SUCCESS);
 
         var sequence = new b3.MemSequence({children:[node1, node2, node3]});
-        var tick = getTick();
+        var tick = TickStub();
         tick.blackboard.get.returns(0);
         var status = sequence.tick(tick);
 
@@ -65,7 +46,7 @@ suite('Composite: MemSequence', function() {
         var node4 = getNode(b3.SUCCESS);
 
         var sequence = new b3.MemSequence({children:[node1, node2, node3, node4]});
-        var tick = getTick();
+        var tick = TickStub();
         tick.blackboard.get.returns(0);
         var status = sequence.tick(tick);
 
@@ -83,7 +64,7 @@ suite('Composite: MemSequence', function() {
         var node4 = getNode(b3.SUCCESS);
 
         var sequence = new b3.MemSequence({children:[node1, node2, node3, node4]});
-        var tick = getTick();
+        var tick = TickStub();
         tick.blackboard.get.returns(0);
         var status = sequence.tick(tick);
 
@@ -102,7 +83,7 @@ suite('Composite: MemSequence', function() {
         var node5 = getNode(b3.SUCCESS);
 
         var msequence = new b3.MemSequence({children:[node1, node2, node3, node4, node5]});
-        var tick = getTick();
+        var tick = TickStub();
         msequence.id = 'node1';
 
         // Execute two times, the first returning running, the second failure

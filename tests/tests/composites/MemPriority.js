@@ -9,32 +9,13 @@ suite('Composite: MemPriority', function() {
         return {'_execute': _execute};
     }
 
-    var getTick = function() {
-        var tick = {
-            'enterNode'  : sinon.spy(),
-            'openNode'   : sinon.spy(),
-            'tickNode'   : sinon.spy(),
-            'closeNode'  : sinon.spy(),
-            'exitNode'   : sinon.spy(),
-            'tree'       : {
-                'id' : 'tree1'
-            },
-            'blackboard' : {
-                'set' : sinon.spy(),
-                'get' : sinon.stub()
-            }
-        }
-
-        return tick;
-    }
-
     test('Prototype', function() {
         assert.equal(b3.MemPriority.prototype.name, 'MemPriority');
     });
 
     test('Open', function() {
         var mpriority = new b3.MemPriority();
-        var tick = getTick();
+        var tick = TickStub();
         mpriority.id = 'node1';
         mpriority.open(tick);
 
@@ -48,7 +29,7 @@ suite('Composite: MemPriority', function() {
         var node3 = getNode(b3.SUCCESS);
 
         var mpriority = new b3.MemPriority({children:[node1, node2, node3]});
-        var tick = getTick();
+        var tick = TickStub();
         tick.blackboard.get.returns(0);
         var status = mpriority.tick(tick);
 
@@ -64,7 +45,7 @@ suite('Composite: MemPriority', function() {
         var node3 = getNode(b3.FAILURE);
 
         var mpriority = new b3.MemPriority({children:[node1, node2, node3]});
-        var tick = getTick();
+        var tick = TickStub();
         tick.blackboard.get.returns(0);
         var status = mpriority.tick(tick);
 
@@ -81,7 +62,7 @@ suite('Composite: MemPriority', function() {
         var node4 = getNode(b3.SUCCESS);
 
         var mpriority = new b3.MemPriority({children:[node1, node2, node3, node4]});
-        var tick = getTick();
+        var tick = TickStub();
         tick.blackboard.get.returns(0);
         var status = mpriority.tick(tick);
 
@@ -100,7 +81,7 @@ suite('Composite: MemPriority', function() {
         var node5 = getNode(b3.FAILURE);
 
         var mpriority = new b3.MemPriority({children:[node1, node2, node3, node4, node5]});
-        var tick = getTick();
+        var tick = TickStub();
         mpriority.id = 'node1';
 
         // Execute two times, the first returning running, the second failure

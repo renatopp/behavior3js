@@ -6,36 +6,36 @@ suite('Core: Tick', function() {
         var tick = new b3.Tick();
         
         assert.isDefined(tick.tree);
-        assert.isDefined(tick.openNodes);
-        assert.isDefined(tick.nodeCount);
         assert.isDefined(tick.debug);
         assert.isDefined(tick.target);
         assert.isDefined(tick.blackboard);
+        assert.isDefined(tick._openNodes);
+        assert.isDefined(tick._nodeCount);
 
-        assert.equal(tick.nodeCount, 0);
-        assert.equal(tick.openNodes.length, 0);
+        assert.equal(tick._nodeCount, 0);
+        assert.equal(tick._openNodes.length, 0);
     });
 
     test('Updating tick info on enter', function() {
         var tick = new b3.Tick();
         var node = {'id': 'node1'}
         
-        tick.enterNode(node);
-        assert.equal(tick.nodeCount, 1);
-        assert.equal(tick.openNodes.length, 1);
-        assert.strictEqual(tick.openNodes[0], node);
+        tick._enterNode(node);
+        assert.equal(tick._nodeCount, 1);
+        assert.equal(tick._openNodes.length, 1);
+        assert.strictEqual(tick._openNodes[0], node);
     });
 
     test('Updating tick info on close', function() {
         var tick = new b3.Tick();
         var node = {'id': 'node1'}
 
-        tick.nodeCount = 1;
-        tick.openNodes = [node];
+        tick._nodeCount = 1;
+        tick._openNodes = [node];
         
-        tick.closeNode(node);
-        assert.equal(tick.nodeCount, 1);
-        assert.equal(tick.openNodes.length, 0);
+        tick._closeNode(node);
+        assert.equal(tick._nodeCount, 1);
+        assert.equal(tick._openNodes.length, 0);
     });
 
     // test('Callbacks calling debug', function() {

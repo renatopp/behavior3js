@@ -1,22 +1,4 @@
 suite('Core: BaseNode', function() {
-    var getTick = function() {
-        return {
-            'tree'      : {'id': 'tree1'},
-            'blackboard': {
-                'set': sinon.spy(),
-                'get': sinon.stub()
-            },
-            'openNodes' : [],
-            'nodeCount' : 0,
-            
-            'enterNode' : sinon.spy(),
-            'openNode'  : sinon.spy(),
-            'tickNode'  : sinon.spy(),
-            'closeNode' : sinon.spy(),
-            'exitNode'  : sinon.spy(),
-        }
-    }
-
     test('Initialization', function() {
         var node = new b3.BaseNode();
 
@@ -53,7 +35,7 @@ suite('Core: BaseNode', function() {
 
     test('Execute is calling functions?', function() {
         var node = new b3.BaseNode();
-        var tick = getTick();
+        var tick = TickStub();
 
         tick.blackboard.get
             .withArgs('isOpen', 'tree1', 'node1')
@@ -77,7 +59,7 @@ suite('Core: BaseNode', function() {
 
     test('Execute does not opening a node already open', function() {
         var node = new b3.BaseNode();
-        var tick = getTick();
+        var tick = TickStub();
 
         tick.blackboard.get
             .withArgs('isOpen', 'tree1', 'node1')
@@ -92,7 +74,7 @@ suite('Core: BaseNode', function() {
 
     test('Execute closing the node that does not returns RUNNING', function() {
         var node = new b3.BaseNode();
-        var tick = getTick();
+        var tick = TickStub();
 
         tick.blackboard.get.returns(false);
 
@@ -107,16 +89,16 @@ suite('Core: BaseNode', function() {
 
     test('Execute calling tick callbacks', function() {
         var node = new b3.BaseNode();
-        var tick = getTick();
+        var tick = TickStub();
 
         tick.blackboard.get.returns(false);
         node._execute(tick);
 
-        assert.isTrue(tick.enterNode.withArgs(node).calledOnce);
-        assert.isTrue(tick.openNode.withArgs(node).calledOnce);
-        assert.isTrue(tick.tickNode.withArgs(node).calledOnce);
-        assert.isTrue(tick.closeNode.withArgs(node).calledOnce);
-        assert.isTrue(tick.exitNode.withArgs(node).calledOnce);
+        assert.isTrue(tick._enterNode.withArgs(node).calledOnce);
+        assert.isTrue(tick._openNode.withArgs(node).calledOnce);
+        assert.isTrue(tick._tickNode.withArgs(node).calledOnce);
+        assert.isTrue(tick._closeNode.withArgs(node).calledOnce);
+        assert.isTrue(tick._exitNode.withArgs(node).calledOnce);
     });
 
 });

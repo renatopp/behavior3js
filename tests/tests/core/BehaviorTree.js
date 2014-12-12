@@ -46,8 +46,8 @@ suite('Core: Behavior Tree', function() {
         var blackboard = getBlackboard();
         var target = {}
         var node = {'_execute': function(tick) {
-            tick.enterNode('node1'),
-            tick.enterNode('node2')
+            tick._enterNode('node1'),
+            tick._enterNode('node2')
         }};
 
         blackboard.get.withArgs('openNodes', 'tree1')
@@ -78,9 +78,9 @@ suite('Core: Behavior Tree', function() {
         var node7 = getClosableNode('node7');
 
         var root = {'_execute': function(tick) {
-            tick.enterNode(node1);
-            tick.enterNode(node2);
-            tick.enterNode(node3);
+            tick._enterNode(node1);
+            tick._enterNode(node2);
+            tick._enterNode(node3);
         }};
         blackboard.get.withArgs('openNodes', 'tree1')
                       .returns([node1, node2, node3, node4, node5, node6, node7])
@@ -111,10 +111,10 @@ suite('Core: Behavior Tree', function() {
         var node4 = getClosableNode('node4');
 
         var root = {'_execute': function(tick) {
-            tick.enterNode(node1);
-            tick.enterNode(node2);
-            tick.enterNode(node3);
-            tick.enterNode(node4);
+            tick._enterNode(node1);
+            tick._enterNode(node2);
+            tick._enterNode(node3);
+            tick._enterNode(node4);
         }};
         blackboard.get.withArgs('openNodes', 'tree1')
                       .returns([node1, node2])
