@@ -37,23 +37,29 @@ var p = View.prototype = new createjs.EventDispatcher;
         this.registerSymbol('Priority',     b3view.draw.prioritySymbol);
         this.registerSymbol('MemPriority',  b3view.draw.memprioritySymbol);
 
+        this.defaultNodes = [
+            b3view.Root,
+            b3.Sequence,
+            b3.Priority,
+            b3.MemSequence,
+            b3.MemPriority,
+            b3.Repeater,
+            b3.RepeatUntilFailure,
+            b3.RepeatUntilSuccess,
+            b3.MaxTime,
+            b3.Inverter,
+            b3.Limiter,
+            b3.Failer,
+            b3.Succeeder,
+            b3.Runner,
+            b3.Error,
+            b3.Wait
+        ];
         // register node
-        this.registerNode(b3view.Root);
-        this.registerNode(b3.Sequence);
-        this.registerNode(b3.Priority);
-        this.registerNode(b3.MemSequence);
-        this.registerNode(b3.MemPriority);
-        this.registerNode(b3.Repeater);
-        this.registerNode(b3.RepeatUntilFailure);
-        this.registerNode(b3.RepeatUntilSuccess);
-        this.registerNode(b3.MaxTime);
-        this.registerNode(b3.Inverter);
-        this.registerNode(b3.Limiter);
-        this.registerNode(b3.Failer);
-        this.registerNode(b3.Succeeder);
-        this.registerNode(b3.Runner);
-        this.registerNode(b3.Error);
-        this.registerNode(b3.Wait);
+        for (var i = 0; i < this.defaultNodes.length; i++) {
+            this.registerNode(this.defaultNodes[i]);
+        };
+        
 
         this.reset();
         this.center();
@@ -171,6 +177,16 @@ var p = View.prototype = new createjs.EventDispatcher;
         var data = JSON.parse(json);
         var dataRoot = null;
 
+        if (data.custom_nodes) {
+            for (var i = 0; i < data.custom_nodes.length; i++) {
+                var template = data.custom_nodes[i];
+                if (!this.nodes[template.name]) { //If the node does'nt allready exist
+                    this.createNodeType(template);
+                }   
+            };
+        }
+        
+
         // Nodes
         for (var id in data.nodes) {
             var spec = data.nodes[id];
@@ -236,6 +252,20 @@ var p = View.prototype = new createjs.EventDispatcher;
         data.properties  = root.properties;
         data.nodes       = {};
 
+        data.custom_nodes = [];
+        for(var key in this.nodes) {
+            var node = this.nodes[key];
+            if (this.defaultNodes.indexOf(node) === -1) {
+                var item = {
+                    "name" : node.prototype.name,
+                    "title" : node.prototype.title,
+                    "category": node.prototype.category,
+                };
+                data.custom_nodes.push(item);
+            }
+            
+        }
+
         // Node Spec
         for (var i=0; i<this.blocks.length; i++) {
             var block = this.blocks[i];
@@ -279,6 +309,9 @@ var p = View.prototype = new createjs.EventDispatcher;
         // Create nodes
         var stack = [tree.root];
         var blocks = {}
+
+
+
         while (stack.length > 0) {
             var node = stack.pop();
 
@@ -323,7 +356,24 @@ var p = View.prototype = new createjs.EventDispatcher;
         // Organize them all
         this.organize(true);
         // Configura screen
-    }
+    };
+
+    p.createNodeType = function(template) {
+          var classes = {
+            'composite' : b3.Composite,
+            'decorator' : b3.Decorator,
+            'condition' : b3.Condition,
+            'action' : b3.Action,
+          };
+          var category = template.category;
+          var cls = classes[category];
+          
+          var tempClass = b3.Class(cls);
+          tempClass.prototype.name = template.name;
+          tempClass.prototype.title = template.title;
+          
+          this.registerNode(tempClass);
+    };
 
     p.addBlock = function(name, x, y) {
         x = x || 0;
@@ -344,6 +394,7 @@ var p = View.prototype = new createjs.EventDispatcher;
 
         return block;
     }
+
     p.addConnection = function(inBlock, outBlock) {
         var connection = new b3view.Connection(this);
 
