@@ -145,8 +145,10 @@ app.events.onButtonNewTree = function(event) {
 }
 app.events.onButtonImportTree = function(event) {
     var json = app.dom.importEntry.val();
+
     try {
         app.view.importFromJSON(json);
+        app.helpers.updateNodes();
     } catch (e) {
         app.helpers.alert('error', 'Bad input format, check the console to '+
                                    'know more about this error.');

@@ -1,3 +1,16 @@
+Version [NEXT]
+==============
+
+[editor]
+- Add: editor import and export custom_node property (see #9).
+- Add: editor create custom nodes automatically when importing(see #9).
+- Fix: error when importing json without Display.
+
+[core]
+- Add: BehaviorTree now dump with custom_node property (see #9).
+- Fix: tests working again.
+
+
 Version 0.1.0 [Out 27, 2014]
 ============================
 
