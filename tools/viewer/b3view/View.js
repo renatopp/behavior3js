@@ -176,6 +176,7 @@ var p = View.prototype = new createjs.EventDispatcher;
 
         var data = JSON.parse(json);
         var dataRoot = null;
+        var hasDisplay = (data.display)?true:false;
 
         if (data.custom_nodes) {
             for (var i = 0; i < data.custom_nodes.length; i++) {
@@ -185,11 +186,13 @@ var p = View.prototype = new createjs.EventDispatcher;
                 }   
             };
         }
-        
 
         // Nodes
         for (var id in data.nodes) {
             var spec = data.nodes[id];
+
+            spec.display = spec.display || {};
+
             var block = this.addBlock(spec.name, spec.display.x, spec.display.y);
             block.id = spec.id;
             block.title = spec.title;
@@ -197,7 +200,7 @@ var p = View.prototype = new createjs.EventDispatcher;
             block.parameters = spec.parameters;
             block.properties = spec.properties;
             block.redraw();
-
+    
             if (block.id === data.root) {
                 dataRoot = block;
             }
@@ -229,10 +232,16 @@ var p = View.prototype = new createjs.EventDispatcher;
             this.addConnection(this.getRoot(), dataRoot);
         }
 
-        this.ui.camera.x      = data.display.camera_x;
-        this.ui.camera.y      = data.display.camera_y;
-        this.ui.camera.scaleX = data.display.camera_z;
-        this.ui.camera.scaleY = data.display.camera_z;
+        data.display = data.display || {};
+        this.ui.camera.x      = data.display.camera_x || 0;
+        this.ui.camera.y      = data.display.camera_y || 0;
+        this.ui.camera.scaleX = data.display.camera_z || 1;
+        this.ui.camera.scaleY = data.display.camera_z || 1;
+
+        // Auto organize
+        if (!hasDisplay) {
+            this.organize(true);
+        }
     }
     p.exportToJSON = function() {
         var root = this.getRoot();

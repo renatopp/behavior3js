@@ -136,6 +136,7 @@ suite('Core: Behavior Tree - Serialization', function() {
         var tree = new b3.BehaviorTree();
         var CustomNode = b3.Class(b3.Condition);
         CustomNode.prototype.name = 'CustomNode';
+        CustomNode.prototype.title = 'custom';
 
         tree.properties = {
             'prop': 'value',
@@ -145,12 +146,17 @@ suite('Core: Behavior Tree - Serialization', function() {
             }
         }
 
+        var node5 = new CustomNode();
+        node5.id = 'node-5';
+        node5.title = 'Node5';
+        node5.description = 'Node 5 Description';
+
         var node4 = new b3.Wait();
         node4.id = 'node-4';
         node4.title = 'Node4';
         node4.description = 'Node 4 Description';
 
-        var node3 = new b3.MemSequence();
+        var node3 = new b3.MemSequence({children:[node5]});
         node3.id = 'node-3';
         node3.title = 'Node3';
         node3.description = 'Node 3 Description';
@@ -180,11 +186,18 @@ suite('Core: Behavior Tree - Serialization', function() {
         assert.equal(data['properties']['prop'], 'value');
         assert.equal(data['properties']['comp']['val1'], 234);
         assert.equal(data['properties']['comp']['val2'], 'value');
+        
+        assert.isDefined(data['custom_nodes']);
+        assert.equal(data['custom_nodes'].length, 1);
+        assert.equal(data['custom_nodes'][0]['name'], 'CustomNode');
+        assert.equal(data['custom_nodes'][0]['title'], 'custom');
+        assert.equal(data['custom_nodes'][0]['category'], b3.CONDITION);
 
         assert.isDefined(data['nodes']['node-1']);
         assert.isDefined(data['nodes']['node-2']);
         assert.isDefined(data['nodes']['node-3']);
         assert.isDefined(data['nodes']['node-4']);
+        assert.isDefined(data['nodes']['node-5']);
 
         assert.equal(data['nodes']['node-1']['id'], 'node-1');
         assert.equal(data['nodes']['node-1']['name'], 'Priority');
@@ -202,12 +215,21 @@ suite('Core: Behavior Tree - Serialization', function() {
         assert.equal(data['nodes']['node-3']['name'], 'MemSequence');
         assert.equal(data['nodes']['node-3']['title'], 'Node3');
         assert.equal(data['nodes']['node-3']['description'], 'Node 3 Description');
-        assert.equal(data['nodes']['node-3']['children'].length, 0);
+        assert.equal(data['nodes']['node-3']['children'].length, 1);
 
         assert.equal(data['nodes']['node-4']['name'], 'Wait');
         assert.equal(data['nodes']['node-4']['title'], 'Node4');
         assert.equal(data['nodes']['node-4']['description'], 'Node 4 Description');
         assert.isUndefined(data['nodes']['node-4']['children']);
         assert.isUndefined(data['nodes']['node-4']['child']);
+
+        assert.equal(data['nodes']['node-5']['name'], 'CustomNode');
+        assert.equal(data['nodes']['node-5']['title'], 'Node5');
+        assert.equal(data['nodes']['node-5']['description'], 'Node 5 Description');
+        assert.isUndefined(data['nodes']['node-5']['children']);
+        assert.isUndefined(data['nodes']['node-5']['child']);
+
+        console.log(data);
     });
+
 });

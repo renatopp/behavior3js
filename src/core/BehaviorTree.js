@@ -246,12 +246,14 @@ var p = BehaviorTree.prototype;
     **/
     p.dump = function() {
         var data = {};
+        var customNames = [];
 
-        data.title       = this.title;
-        data.description = this.description;
-        data.root        = (this.root)? this.root.id:null;
-        data.properties  = this.properties;
-        data.nodes       = {};
+        data.title        = this.title;
+        data.description  = this.description;
+        data.root         = (this.root)? this.root.id:null;
+        data.properties   = this.properties;
+        data.nodes        = {};
+        data.custom_nodes = [];
 
         if (!this.root) return data;
 
@@ -266,7 +268,20 @@ var p = BehaviorTree.prototype;
             spec.description = node.description;
             spec.properties = node.properties;
             spec.parameters = node.parameters;
+
+            // verify custom node
+            var nodeName = node.__proto__.name || node.name;
+            if (!b3[nodeName] && customNames.indexOf(nodeName) < 0) {
+                var subdata = {}
+                subdata.name = nodeName;
+                subdata.title = node.__proto__.title || node.title;
+                subdata.category = node.category;
+
+                customNames.push(nodeName);
+                data.custom_nodes.push(subdata);
+            }
             
+            // store children/child
             if (node.category === b3.COMPOSITE && node.children) {
                 var children = []
                 for (var i=node.children.length-1; i>=0; i--) {
