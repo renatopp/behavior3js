@@ -1,0 +1,20 @@
+{
+  "name": "behavior3js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/renatopp/behavior3js",
+  "authors": [
+    "Renato Pereira",
+    "Davis Marques"
+  ],
+  "description": "Behavior tree library",
+  "license": "MIT",
+  "main": [ "libs/b3core.0.1.0.js" ],
+  "ignore": [
+    "**/*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "test",
+    "tools"
+  ]
+}

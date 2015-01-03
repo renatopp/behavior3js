@@ -27,6 +27,8 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+# IDE configurations
+.idea
 
 # --------------
 docs/behavior3js
