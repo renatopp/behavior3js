@@ -10,7 +10,6 @@
   "license": "MIT",
   "main": [ "libs/b3core.0.1.0.js" ],
   "ignore": [
-    "**/*",
     "node_modules",
     "bower_components",
     "src",
