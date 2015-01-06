@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "homepage": "https://github.com/renatopp/behavior3js",
   "authors": [
-    "Renato Pereira",
-    "Davis Marques"
+    {"name":"Renato Pereira", "email":"renato.ppontes@gmail.com", "homepage":"http://guineashots.com"},
+    {"name":"Davis Marques"}
   ],
   "description": "Behavior tree library",
   "license": "MIT",
-  "main": [ "libs/b3core.0.1.0.js" ],
+  "keywords": ["behavior", "tree", "behavior tree", "behavior3", "b3", "ai",
+               "artificial intelligence"],
+  "main": [ "libs/b3core.0.1.0.min.js" ],
   "ignore": [
     "node_modules",
     "bower_components",
@@ -16,6 +18,7 @@
     "docs",
     "src",
     "tests",
-    "tools"
+    "tools",
+    "examples"
   ]
 }
