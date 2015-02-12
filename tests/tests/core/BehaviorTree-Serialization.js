@@ -46,8 +46,11 @@ suite('Core: Behavior Tree - Serialization', function() {
                     'title'       : 'Node 3',
                     'description' : 'Node 3 Description',
                     'child'       : null,
+                    'properties'  : {
+                        'maxTime' : 1 // works as constructor argument now
+                    },
                     'parameters'  : {
-                        'maxTime' : 1
+                        'maxTime' : 999 // does not affect anymore
                     }
                 }
             }
@@ -92,6 +95,7 @@ suite('Core: Behavior Tree - Serialization', function() {
         assert.instanceOf(node, b3.MaxTime);
         assert.equal(node.title, 'Node 3');
         assert.equal(node.description, 'Node 3 Description');
+        assert.notEqual(node.parameters['maxTime'], 999);
     });
 
     test('Load JSON model with custom nodes', function() {

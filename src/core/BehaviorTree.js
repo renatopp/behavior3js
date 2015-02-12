@@ -207,12 +207,11 @@ var p = BehaviorTree.prototype;
                                  spec.name+'".');
             }
 
-            var node = new cls(spec.parameters);
+            var node = new cls(spec.properties);
             node.id = spec.id || node.id;
             node.title = spec.title || node.title;
             node.description = spec.description || node.description;
             node.properties = spec.properties || node.properties;
-            node.parameters = spec.parameters || node.parameters;
 
             nodes[id] = node;
         }
