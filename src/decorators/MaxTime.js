@@ -54,13 +54,13 @@ var p = MaxTime.prototype;
     p.name = 'MaxTime';
 
     /**
-     * Node title. Default to `Max Time`.
+     * Node title. Default to `Max XXms`. Used in Editor.
      *
      * @property title
      * @type {String}
      * @readonly
     **/
-    p.title = 'Max Time';
+    p.title = 'Max <maxTime>ms';
 
     /**
      * Node parameters.
@@ -69,7 +69,7 @@ var p = MaxTime.prototype;
      * @type {String}
      * @readonly
     **/
-    p.parameters = {'maxTime': null};
+    p.parameters = {'maxTime': 0};
 
     p.__Decorator_initialize = p.initialize;
     /**

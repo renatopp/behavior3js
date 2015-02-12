@@ -54,6 +54,15 @@ var p = Repeater.prototype;
     p.name = 'Repeater';
 
     /**
+     * Node title. Default to `Repeat XXx`. Used in Editor.
+     *
+     * @property title
+     * @type {String}
+     * @readonly
+    **/
+    p.name = 'Repeat <maxLoop>x';
+
+    /**
      * Node parameters.
      *
      * @property parameters

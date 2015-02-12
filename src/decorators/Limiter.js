@@ -54,13 +54,22 @@ var p = Limiter.prototype;
     p.name = 'Limiter';
 
     /**
+     * Node title. Default to `Limit X Activations`. Used in Editor.
+     *
+     * @property title
+     * @type {String}
+     * @readonly
+    **/
+    p.title = 'Limit <maxLoop> Activations';
+
+    /**
      * Node parameters.
      *
      * @property parameters
      * @type {String}
      * @readonly
     **/
-    p.parameters = {'maxLoop': null};
+    p.parameters = {'maxLoop': 1};
     
     p.__Decorator_initialize = p.initialize;
     /**

@@ -52,6 +52,15 @@ var p = Wait.prototype;
     p.name = 'Wait';
 
     /**
+     * Node title. Default to `Wait XXms`. Used in Editor.
+     *
+     * @property title
+     * @type {String}
+     * @readonly
+    **/
+    p.name = 'Wait <milliseconds>ms';
+
+    /**
      * Node parameters.
      *
      * @property parameters
