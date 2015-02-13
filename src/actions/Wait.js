@@ -58,7 +58,7 @@ var p = Wait.prototype;
      * @type {String}
      * @readonly
     **/
-    p.name = 'Wait <milliseconds>ms';
+    p.title = 'Wait <milliseconds>ms';
 
     /**
      * Node parameters.

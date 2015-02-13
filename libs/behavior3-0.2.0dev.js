@@ -2410,7 +2410,7 @@ var p = Repeater.prototype;
      * @type {String}
      * @readonly
     **/
-    p.name = 'Repeat <maxLoop>x';
+    p.title = 'Repeat <maxLoop>x';
 
     /**
      * Node parameters.
@@ -3074,7 +3074,7 @@ var p = Wait.prototype;
      * @type {String}
      * @readonly
     **/
-    p.name = 'Wait <milliseconds>ms';
+    p.title = 'Wait <milliseconds>ms';
 
     /**
      * Node parameters.
